@@ -21,6 +21,7 @@ namespace LWarp.ClientApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddOptions();
             services.AddControllers();
 
             services.AddSwaggerGen(c =>
@@ -28,7 +29,7 @@ namespace LWarp.ClientApi
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "LWarp Api", Version = "v1" });
             });
 
-            services.Configure<GrpcConfig>(c => this.Configuration.GetSection(nameof(GrpcConfig)));
+            services.Configure<GrpcConfig>(c => this.Configuration.GetSection("GrpcConfig").Bind(c));
 
             services.AddScoped<ILinkService, LinkService>();
         }

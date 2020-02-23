@@ -5,6 +5,6 @@ namespace LWarp.ClientApi.Services.Contracts
 {
     public interface ILinkService
     {
-        Task<GrpcClient.LinkCreatedReply> CreateShortLink(LinkData linkData);
+        Task<string> CreateShortLink(LinkData linkData);
     }
 }

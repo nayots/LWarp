@@ -15,7 +15,7 @@ namespace LWarp.ClientApi.Controllers
         private readonly ILogger logger;
         private readonly ILinkService linkService;
 
-        public LinksController(ILogger logger, ILinkService linkService)
+        public LinksController(ILogger<LinksController> logger, ILinkService linkService)
         {
             this.logger = logger;
             this.linkService = linkService;
@@ -41,7 +41,7 @@ namespace LWarp.ClientApi.Controllers
         {
             var result = await this.linkService.CreateShortLink(linkData);
 
-            return this.Created(nameof(Get), new { id = result.Id });
+            return this.Created(nameof(Get), new { id = result });
         }
     }
 }
