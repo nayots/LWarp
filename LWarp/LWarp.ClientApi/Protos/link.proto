@@ -1,0 +1,30 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "LWarp.GrpcClient";
+
+package link;
+
+service Link{
+  rpc GetLink (GetLinkRequest) returns (LinkReply);
+  rpc CreateLink(LinkCreateRequest) returns (LinkCreatedReply);
+}
+
+message GetLinkRequest {
+  string id=1;
+}
+
+message LinkCreatedReply {
+  string id=1;
+}
+
+message LinkReply {
+  string link =1;
+}
+
+message LinkCreateRequest {
+    string link =1;
+}
+
+message returnBool {
+  bool bool = 1;
+}
