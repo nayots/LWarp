@@ -2,7 +2,6 @@
 using LWarp.ClientApi.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -21,25 +20,17 @@ namespace LWarp.ClientApi.Controllers
             this.linkService = linkService;
         }
 
-        // GET: api/<controller>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet("{shortId}")]
+        public async Task<IActionResult> Get([FromRoute]string shortId)
         {
-            return new string[] { "value1", "value2" };
+            var result = await this.linkService.GetLinkByShortIdAsync(shortId);
+            return this.Redirect(result);
         }
 
-        // GET api/<controller>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<controller>
         [HttpPost]
         public async Task<IActionResult> Create([FromBody]LinkData linkData)
         {
-            var result = await this.linkService.CreateShortLink(linkData);
+            var result = await this.linkService.CreateShortLinkAsync(linkData);
 
             return this.Created(nameof(Get), new { id = result });
         }

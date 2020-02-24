@@ -19,7 +19,7 @@ namespace LWarp.ClientApi.Services
             this.grpcConfig = config.Value;
         }
 
-        public async Task<string> CreateShortLink(LinkData linkData)
+        public async Task<string> CreateShortLinkAsync(LinkData linkData)
         {
             var result = await this.GetClient().CreateLinkAsync(new GrpcClient.LinkCreateRequest()
             {
@@ -27,6 +27,16 @@ namespace LWarp.ClientApi.Services
             });
 
             return result.Id;
+        }
+
+        public async Task<string> GetLinkByShortIdAsync(string shortId)
+        {
+            var result = await this.GetClient().GetLinkAsync(new GrpcClient.GetLinkRequest()
+            {
+                Id = shortId
+            });
+
+            return result.Link;
         }
 
         private LWarp.GrpcClient.Link.LinkClient GetClient()
